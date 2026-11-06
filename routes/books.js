@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const Book = require('../repositories/bookRepository')
 
 //health
 router.get("/health", (req, res) => {
@@ -12,27 +13,28 @@ router.get("/", (req, res) => {
 });
 
 //get all books
-router.get("/books", (req, res) => {
-  res.json(books);
+router.get("/books", async (req, res) => {
+  const book = await Book.findAll();
+  res.json(book);
 });
 
 //get a single book
 router.get("/books/:id", (req, res) => {
-  const book = books.find((b) => b.id == Number(req.params.id));
+  const book = Book.findById((b) => b.id == Number(req.params.id));
   //if book doesn't exists
   if (!book) return res.status(404).json({ error: "Book not found!" });
   res.json(book);
 });
 
-router.post('/books', (req, res)=>{
-    const {title} = req.body ?? {};
-    if(!title) return res.status(400).json({error: 'Title is requires'});
-    const book = {
-        id: books.length+1,
-        title: title// title
-    } 
-    books.push(book);
-    res.status(201).json({status: "ok"});
+router.post('/books', async (req, res)=>{
+    const {title, author} = req.body ?? {};
+    if(!title) return res.status(400).json({error: 'Title is required'});
+    try {
+      const book = await Book.create({title, author})
+    res.status(201).json(book);
+    } catch(e){
+      console.log("Error "+e)
+    }
 })
 
 
