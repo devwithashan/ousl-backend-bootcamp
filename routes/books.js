@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Book = require('../repositories/bookRepository')
+const Book = require("../repositories/bookRepository");
 
 //health
 router.get("/health", (req, res) => {
@@ -19,23 +19,36 @@ router.get("/books", async (req, res) => {
 });
 
 //get a single book
-router.get("/books/:id", (req, res) => {
-  const book = Book.findById((b) => b.id == Number(req.params.id));
+router.get("/books/:id", async (req, res) => {
+  const book = await Book.findById(req.params.id);
   //if book doesn't exists
   if (!book) return res.status(404).json({ error: "Book not found!" });
   res.json(book);
 });
 
-router.post('/books', async (req, res)=>{
-    const {title, author} = req.body ?? {};
-    if(!title) return res.status(400).json({error: 'Title is required'});
-    try {
-      const book = await Book.create({title, author})
+//create a book
+router.post("/books", async (req, res) => {
+  const { title, author } = req.body ?? {};
+  if (!title) return res.status(400).json({ error: "Title is required" });
+  try {
+    const book = await Book.create({ title, author });
     res.status(201).json(book);
-    } catch(e){
-      console.log("Error "+e)
-    }
-})
+  } catch (e) {
+    console.log("Error " + e);
+  }
+});
 
+//delete a book
+router.delete("/delete/:id", async (req, res) => {
+  const book = await Book.delete(req.params.id);
+  if (!book) return res.status(404).json({ error: "Book not found!" });
+  res.json(book);
+});
+
+//update a book
+router.patch("/update/:id", async (req, res)=>{
+  const book = await Book.update(req.params.id, req.body);
+  res.json(book);
+})
 
 module.exports = router;
