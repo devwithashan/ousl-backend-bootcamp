@@ -26,7 +26,7 @@ app.post('/books', (req, res)=>{
         title: title// title
     } 
     books.push(book);
-    res.status(201).json(book);ß
+    res.status(201).json({status: "ok"});
 })
 
 app.listen(PORT, ()=>{
