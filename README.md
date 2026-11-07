@@ -4,6 +4,13 @@ A step-by-step Node.js backend project built during the OUSL Backend Bootcamp. I
 
 Each stage of the bootcamp lives on its own branch, so you can check out any branch to see the code exactly as it was at that step.
 
+## Workshop slides
+
+The slides from the workshop are in the root of the `main` branch, in two formats:
+
+- **PDF**: [`Back-End-Engineering-Workshop-Ashan-Dimantha.pdf`](Back-End-Engineering-Workshop-Ashan-Dimantha.pdf). Opens in any PDF viewer and is the easiest to print or share.
+- **HTML**: [`Back-End Engineering for Software Engineers Updates & Hands-On Foundations.html`](Back-End%20Engineering%20for%20Software%20Engineers%20Updates%20%26%20Hands-On%20Foundations.html). Download it and open it in a web browser to view the slides. GitHub shows the HTML source rather than rendering it.
+
 ## Tech stack
 
 - [Node.js](https://nodejs.org/): JavaScript runtime
